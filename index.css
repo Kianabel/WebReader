@@ -1,0 +1,203 @@
+:root {
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* header */
+
+header {
+    background-color: #111111;
+    padding: 15px ;
+    text-align: center;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+}
+
+.headerfuchs {
+    max-height: 80px;
+}
+
+/* Searchspace */
+
+.search-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 7px;
+    max-width: 640px;
+    margin: 30px auto;
+    justify-content: center;
+}
+
+input {
+    background-color: #DCE1EB;
+    padding: 30px;
+    border: 0;
+    border-radius: 8px;
+    font-size: 35px;
+    color: #432000;
+    text-align: center;
+    margin: 10px 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+    background-color: #E50914;
+    padding: 30px;
+    border: 0;
+    border-radius: 8px;
+    font-size: 35px;
+    margin: 10px 0;
+    color: #ffffff;
+    font-family: Arial, Helvetica, sans-serif;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5)
+}
+
+button:hover {
+    background-color: #97070e;
+    cursor: pointer;
+}
+
+/* Readspace */
+
+#chapter-List {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 550;
+}
+
+.thumbnail-container {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 7px;
+    max-width: 800px;
+    margin: 30px auto;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center;
+}
+
+.ButtonGroup {
+    margin: 0 auto;
+    padding: 0px;
+    display: flex;
+    max-width: 760px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ChapterButton1 {
+    padding: 0px;
+    margin: 5px;
+    width: 320px;
+    font-size: 45px;
+    color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+}
+.ChapterButton2 {
+    padding: 0px;
+    margin: 5px;
+    width: 90px;
+    font-size: 35px;
+    color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+}
+.ChapterButton3 {
+    padding: 0px;
+    margin: 5px;
+    width: 320px;
+    font-size: 45px;
+    color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+}
+
+.ButtonGroup2 {
+    margin: 0 auto;
+    padding: 0px;
+    display: flex;
+    max-width: 760px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ChapterButton4 {
+    padding: 0px;
+    margin: 5px;
+    width: 320px;
+    font-size: 45px;
+    color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+}
+.ChapterButton5 {
+    padding: 0px;
+    margin: 5px;
+    width: 90px;
+    font-size: 35px;
+    color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+}
+.ChapterButton6 {
+    padding: 0px;
+    margin: 5px;
+    width: 320px;
+    font-size: 45px;
+    color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+}
+
+#book-list {
+    text-align: center;
+}
+
+.reading-Image {
+    width: 750px;
+    text-align: center;
+    box-shadow: 0px 5px 10px 0px rgba(255, 255, 255, 0.5);
+}
+
+.content-Image {
+    height: 270px;
+    aspect-ratio: 2/3;
+    margin: 0px 3px;
+}
+
+.content-Image:hover {
+    -webkit-transform: scale(1.3);
+	transform: scale(1.3);
+    -webkit-transition: .3s ease-in-out;
+    transition: .3s ease-in-out;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+ul li {
+    background-color: #E50914;
+    padding: 15px;
+    border-radius: 8px;
+    flex-grow: 1;
+    font-size: 20px;
+    text-align: center;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2)
+}
+
+ul li:hover {
+    background-color: #97070e;
+    cursor: pointer;
+}
