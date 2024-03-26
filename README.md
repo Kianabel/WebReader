@@ -1,1 +1,1 @@
-WebReader build in Plain JavaScript
+WebReader build with plain JavaScript and Firebase
