@@ -133,9 +133,9 @@ function ListText(chapterNumber, bookID) {
       newButton4.className = "ChapterButton4";
       newButton5.className = "ChapterButton5";
       newButton6.className = "ChapterButton6";
-      newButton4.innerText = "↫";
+      newButton4.innerText = "↤";
       newButton5.innerText = "🕮";
-      newButton6.innerText = "↬";
+      newButton6.innerText = "↦";
       newbuttongroup2.append(newButton4);
       newbuttongroup2.append(newButton5);
       newbuttongroup2.append(newButton6);
@@ -169,9 +169,9 @@ function ListText(chapterNumber, bookID) {
       newButton1.className = "ChapterButton1";
       newButton2.className = "ChapterButton2";
       newButton3.className = "ChapterButton3";
-      newButton1.innerText = "↫";
+      newButton1.innerText = "↤";
       newButton2.innerText = "🕮";
-      newButton3.innerText = "↬";
+      newButton3.innerText = "↦";
       newbuttongroup.append(newButton1);
       newbuttongroup.append(newButton2);
       newbuttongroup.append(newButton3);
