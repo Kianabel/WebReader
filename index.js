@@ -28,6 +28,19 @@ const homeButton = document.getElementById("home-Button");
 const chapterListEl = document.getElementById("chapter-List");
 const thumbnailContainerEl = document.getElementById("book-list");
 const contentListEl = document.getElementById("content-List");
+const menuButtonEL = document.getElementById("menu-Button")
+const closemenuButtonEl = document.getElementById("menu-close")
+const sideMenuEl = document.getElementById("side-menu")
+
+menuButtonEL.addEventListener("click", () => {
+  sideMenuEl.classList.remove("shrink")
+  sideMenuEl.classList.add("grow")
+})
+
+closemenuButtonEl.addEventListener("click", () => {
+  sideMenuEl.classList.remove("grow")
+  sideMenuEl.classList.add("shrink")
+})
 
 ListBooks(); // Load DefaultDB
 
@@ -47,7 +60,7 @@ searchButtonEl.addEventListener("click", () => {
     if (inputFieldEl.value !== "") {
       if (snapshot.exists()) {
         let itemTitle = Object.values(snapshot.val()).join("");
-        appendPictureTothumbnailContainerEl(["0", itemTitle]);
+        appendPictureTothumbnailContainerEl([inputFieldEl.value,itemTitle]);
       } else {
         thumbnailContainerEl.innerHTML = "No books have been found";
       }
