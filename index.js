@@ -122,6 +122,7 @@ function ListText(chapterNumber, bookID) {
         
       //All the Books added to DB
       let itemsArray = Object.entries(snapshot.val());
+      let itemsText = Object.values(snapshot.val())
       thumbnailContainerEl.innerHTML = "";
 
       let newbuttongroup2 = document.createElement("div");
@@ -155,9 +156,23 @@ function ListText(chapterNumber, bookID) {
         ListText(nextChapter, bookID);
       })
 
+      //check if https=Manga or nohttps=Novel
+
+      let containsHttps = false;
       for (let i = 0; i < itemsArray.length; i++) {
-        let currentItem = itemsArray[i];
-        renderReadingImages(currentItem);
+          if (itemsArray[i][1].startsWith("http") || itemsArray[i][1].includes("http")) {
+              containsHttps = true;
+              // Call function if "https" is found
+              for (let i = 0; i < itemsArray.length; i++) {
+                let currentItem = itemsArray[i];
+                renderReadingImages(currentItem)
+              }
+              break; // Stop iterating if "https" is found
+          }
+      }
+      if (!containsHttps) {
+          // Call another function if "https" is not found
+          appendStringToThumbnailContainerEl(itemsText)
       }
       
       let newbuttongroup = document.createElement("div");
@@ -253,16 +268,12 @@ function scrollToTop() {
   window.scrollTo(0, 0);
 }
 
-/*function appendStringToThumbnailContainerEl(item) {
-    let itemID = item[0]
-    let itemString = item[1]
-    let newString = document.createElement("p")
-
-    console.log(item[0])
-
-   
-    newString.className = "chapter-Text"
-    newString.innerHTML += itemString
-    thumbnailContainerEl.append(newString)
+function appendStringToThumbnailContainerEl(item) {
+  let itemID = item[0]
+  let itemString = item.join("")
+  let newString = document.createElement("p")
+ 
+  newString.className = "chapter-Text"
+  newString.innerHTML += itemString
+  contentListEl.append(newString)
 }
-*/
