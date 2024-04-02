@@ -42,6 +42,7 @@ closemenuButtonEl.addEventListener("click", () => {
   sideMenuEl.classList.add("shrink")
 })
 
+
 ListBooks(); // Load DefaultDB
 
 homeButton.addEventListener("click", () => {
@@ -75,6 +76,7 @@ function ListBooks() {
 
   onValue(bookList, function (snapshot) {
     //All the Books added to DB
+    clearInnerHtml();
     if (snapshot.exists()) {
       let itemsArray = Object.entries(snapshot.val());
       thumbnailContainerEl.innerHTML = "";
@@ -96,6 +98,7 @@ function ListChapters(bookID) {
   inputFieldEl.style.backgroundColor = "#A0A0A0";
 
   onValue(chapterList, function (snapshot) {
+    clearInnerHtml();
     if (snapshot.exists()) {
       let itemsArray = Object.entries(snapshot.val());
       thumbnailContainerEl.innerHTML = "";
@@ -118,6 +121,7 @@ function ListText(chapterNumber, bookID) {
   onValue(
     ref(database, `textList/${bookID}/${chapterNumber}/`),
     function (snapshot) {
+      clearInnerHtml();
         if (snapshot.exists()) {
         
       //All the Books added to DB
