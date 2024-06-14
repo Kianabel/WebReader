@@ -259,16 +259,18 @@ button:hover {
 }
 
 ul {
-    list-style-type: none;
-    padding: 0;
     display: flex;
+    list-style-type: none;
+    justify-content: 50px;
+    padding: 20px;
     flex-wrap: wrap;
     gap: 10px;
 }
 
 ul li {
+    padding: 0px;
     background-color: #E50914;
-    padding: 15px;
+    padding: 5px;
     border-radius: 8px;
     flex-grow: 1;
     font-size: 20px;
@@ -302,4 +304,16 @@ footer {
     bottom: 0;
     height: 35px;
     width: 100%;
+    z-index: 99;
+}
+
+.chapter-Text {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: left;
+    font-size: 20px;
+    line-height: 1.2;
+}
+
+p {
+    margin-top: 50px;
 }
