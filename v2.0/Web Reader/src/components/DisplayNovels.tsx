@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
-import db from '../../firebase-config'; // Ensure db is being imported correctly from where it's initialized
+import db from '../../firebase-config';
 
 interface Novel {
     id: string;
-    thumbnail: string; // Adjust the type based on your actual data structure
+    thumbnail: string;
+    author: string;
+    chapter_count: number;
+    title: string;
 }
 
 const DisplayThumbnails = () => {
@@ -16,7 +19,10 @@ const DisplayThumbnails = () => {
             const querySnapshot = await getDocs(collectionRef);
             const novelsData = querySnapshot.docs.map(doc => ({
                 id: doc.id,
-                thumbnail: doc.data().thumbnail // Ensure the 'thumbnail' field is a string or adjust the type accordingly
+                thumbnail: doc.data().thumbnail,
+                author: doc.data().author,
+                title: doc.data().title,
+                chapter_count: doc.data().chapter_count
             }));
             setNovels(novelsData);
         };
