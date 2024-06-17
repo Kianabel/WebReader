@@ -1,12 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
 import './index.css'
-import Novel from "./routes/Novel.tsx"
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+
+import App from './App.tsx'
+import Novel from "./routes/Novel.tsx"
+import Manga from "./routes/Manga.tsx"
+import Infoscreen from './routes/Infoscreen.tsx';
 
 const router = createBrowserRouter([
   {
@@ -18,16 +21,12 @@ const router = createBrowserRouter([
     element: <App/>,
   },
   {
-    path: "/manga",
-    element: <App/>,
-  },
-  {
-    path: "/novel",
+    path: "/:type",
     element: <Novel/>,
   },
   {
-    path: "/novel/:title",
-    element: <App/>,
+    path: "/:type/:title",
+    element: <Infoscreen/>,
   },
   {
     path: "/novel/:title/chapter/:chapterNumber",
