@@ -59,7 +59,7 @@ const Navbar = () => {
     flexDirection: "column", // Stack children vertically
     alignItems: "center", // Center children horizontally
     height: "90vh",
-    width: isMenuOpen ? (isMobile ? "100vw" : "100px") : "0",
+    width: isMenuOpen ? (isMobile ? "100vw" : "90px") : "0",
     opacity: isMenuOpen ? "1" : "0",
     transition: "width 0.3s, opacity 0.3s",
     backgroundColor: "#242424",
