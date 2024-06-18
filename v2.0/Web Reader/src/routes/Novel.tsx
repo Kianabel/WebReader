@@ -1,5 +1,6 @@
 import DisplayBooks from "../components/DisplayBooks"
 import Navbar from '../components/Navbar'
+import Card from "../components/Card";
 import { useParams } from "react-router-dom";
 
 const Novel = () => {
@@ -21,6 +22,7 @@ const Novel = () => {
         <Navbar/>
         <h1 style={headlineStyle}>{headline}</h1>
         <DisplayBooks/>
+        <Card/>
         </>
     );
 }

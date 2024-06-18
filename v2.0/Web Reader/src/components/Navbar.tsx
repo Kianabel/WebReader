@@ -55,9 +55,9 @@ const Navbar = () => {
   };
 
   const sideBarStyle: React.CSSProperties = {
-    display: "flex", // Enable flexbox
-    flexDirection: "column", // Stack children vertically
-    alignItems: "center", // Center children horizontally
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
     height: "90vh",
     width: isMenuOpen ? (isMobile ? "100vw" : "90px") : "0",
     opacity: isMenuOpen ? "1" : "0",
@@ -66,7 +66,7 @@ const Navbar = () => {
     position: "absolute",
     boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.5)",
     zIndex: 99,
-    overflow: "hidden", // Prevents any child elements from overflowing when sidebar is closed
+    overflow: "hidden",
   };
 
   const openMenu = () => {

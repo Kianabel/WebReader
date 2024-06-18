@@ -8,7 +8,6 @@ import {
 
 import App from './App.tsx'
 import Novel from "./routes/Novel.tsx"
-import Manga from "./routes/Manga.tsx"
 import Infoscreen from './routes/Infoscreen.tsx';
 
 const router = createBrowserRouter([
