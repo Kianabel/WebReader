@@ -11,7 +11,7 @@ interface Novel {
   title: string;
 }
 
-const DisplayBooks = () => {
+const getBooks = () => {
   const [novels, setNovels] = useState<Novel[]>([]);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const { type } = useParams<"type">();
@@ -85,4 +85,4 @@ const DisplayBooks = () => {
   );
 };
 
-export default DisplayBooks;
+export default getBooks;

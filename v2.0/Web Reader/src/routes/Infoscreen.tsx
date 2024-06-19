@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../firebase-config";
+import Divider from "../components/Divider";
+import ChapterList from "../components/ChapterList";
 
 interface InfoContent {
   id: string;
@@ -143,6 +145,8 @@ const NovelInfo = () => {
         </div>
         </div>
       </div>
+      <Divider section="Chapters:"/>
+      <ChapterList/>
     </>
   );
 };
