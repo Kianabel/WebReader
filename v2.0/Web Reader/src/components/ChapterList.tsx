@@ -11,6 +11,18 @@ interface Chapter {
 const ChapterList = () => {
   const [chapter, setNovels] = useState<Chapter[]>([]);
   const { type, title } = useParams<"type" | "title">();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 700);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchChapter = async () => {
@@ -24,18 +36,22 @@ const ChapterList = () => {
     };
 
     fetchChapter();
-  }, []);
+  }, [type, title]);
+
+
+  const chapterListWrapper: React.CSSProperties = {
+    margin: "auto"
+  }
 
   return (
-    <>
+    <div style={chapterListWrapper}>
       {chapter.map((chapter) => (
         <div key={chapter.id}>
-          <p>
-            Chapter:{chapter.id} - {chapter.chapter_name}
-          </p>
+          <p>Chapter: {chapter.id}</p>
+          <p>{chapter.chapter_name}</p>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

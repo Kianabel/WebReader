@@ -56,6 +56,7 @@ const NovelInfo = () => {
     alignItems: "center",
     overflow: "hidden",
     zIndex: -2,
+    margin: isMobile ? "0 0 15px 0" : "auto"
   };
 
   const contentWrapper: React.CSSProperties = {
@@ -67,6 +68,7 @@ const NovelInfo = () => {
 
   const blurredBackground: React.CSSProperties = {
     backgroundImage: `url(${info?.thumbnail})`,
+    display: "flex",
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     position: "absolute",
@@ -91,7 +93,7 @@ const NovelInfo = () => {
     width: isMobile ? "157px" : "314px",
     borderRadius: "10px",
     boxShadow: "5px 7px 5px rgba(0, 0, 0, 0.2)",
-    margin: isMobile ? "20px" : "0 50px 0 0",
+    margin: isMobile ? "20px 0 0 0" : "0 50px 0 0",
   };
 
   const headlineStyle: React.CSSProperties = {
