@@ -1,10 +1,9 @@
 import Navbar from "../components/Navbar";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import db from "../../firebase-config";
 import Divider from "../components/Divider";
-import ChapterList from "../components/ChapterList";
 
 interface InfoContent {
   id: string;
@@ -15,11 +14,17 @@ interface InfoContent {
   desc: string;
 }
 
+interface Chapter {
+  id: string;
+  chapter_name: string;
+}
+
 const NovelInfo = () => {
   const { type, title } = useParams<"type" | "title">();
   const [info, setInfo] = useState<InfoContent | null>(null);
+  const [chapter, setNovels] = useState<Chapter[]>([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-  
+
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 700);
@@ -31,7 +36,7 @@ const NovelInfo = () => {
     };
   }, []);
 
-  useEffect(() => {
+  useEffect(() => { // retriev basic Info
     const fetchInfo = async () => {
       if (type && title) {
         const docRef = doc(db, `${type}/${title}`);
@@ -47,6 +52,20 @@ const NovelInfo = () => {
     fetchInfo();
   }, [type, title]);
 
+  useEffect(() => { //retriev Chapters
+    const fetchChapter = async () => {
+      const collectionRef = collection(db, `${type}/${title}/chapter`);
+      const querySnapshot = await getDocs(collectionRef);
+      const novelsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        chapter_name: doc.data().chapter_name,
+      }));
+      setNovels(novelsData);
+    };
+
+    fetchChapter();
+  }, [type, title]);
+
   const novelBanner: React.CSSProperties = {
     position: "relative",
     display: "flex",
@@ -56,15 +75,15 @@ const NovelInfo = () => {
     alignItems: "center",
     overflow: "hidden",
     zIndex: -2,
-    margin: isMobile ? "0 0 15px 0" : "auto"
+    margin: isMobile ? "0 0 15px 0" : "auto",
   };
 
   const contentWrapper: React.CSSProperties = {
     display: "flex",
-    flexDirection: isMobile? "column" : "row",
+    flexDirection: isMobile ? "column" : "row",
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  };
 
   const blurredBackground: React.CSSProperties = {
     backgroundImage: `url(${info?.thumbnail})`,
@@ -85,7 +104,6 @@ const NovelInfo = () => {
     flexDirection: "column",
     width: isMobile ? "100%" : "50%",
     height: "80%",
-
   };
 
   const imgBanner: React.CSSProperties = {
@@ -93,7 +111,7 @@ const NovelInfo = () => {
     width: isMobile ? "157px" : "314px",
     borderRadius: "10px",
     boxShadow: "5px 7px 5px rgba(0, 0, 0, 0.2)",
-    margin: isMobile ? "20px 0 0 0" : "0 50px 0 0",
+    margin: isMobile ? "20px 0 20px 0" : "0 50px 0 0",
   };
 
   const headlineStyle: React.CSSProperties = {
@@ -105,8 +123,8 @@ const NovelInfo = () => {
     border: "5px solid #242424",
     boxShadow: "5px 5px 5px rgba(0, 0, 0, 0.3)",
     justifyContent: "center",
-    margin: isMobile ? "0 0 0 0": "0 0 20px 0"
-  }
+    margin: isMobile ? "0 0 0 0" : "0 0 20px 0",
+  };
 
   const ulStatStyle: React.CSSProperties = {
     listStyle: "none",
@@ -118,7 +136,7 @@ const NovelInfo = () => {
     boxShadow: "5px 5px 5px rgba(0, 0, 0, 0.3)",
     justifyContent: "space-around",
     gap: "10px",
-  }
+  };
 
   const summaryStyle: React.CSSProperties = {
     background: "#303030",
@@ -128,6 +146,23 @@ const NovelInfo = () => {
     boxShadow: "5px 5px 5px rgba(0, 0, 0, 0.3)",
     width: isMobile ? "" : "",
     margin: isMobile ? "0 0 0 0" : "auto",
+  };
+
+  const gridContainer: React.CSSProperties = {
+    display: "grid",
+    gridTemplateColumns: "2",
+    width: "100vw"
+
+  }
+
+  const chapterWrapper: React.CSSProperties = {
+    width:"500px"
+
+  }
+
+  const p: React.CSSProperties = {
+    width:"500px"
+
   }
 
   return (
@@ -136,19 +171,35 @@ const NovelInfo = () => {
       <div style={novelBanner}>
         <div style={blurredBackground}></div>
         <div style={contentWrapper}>
-        <img src={info?.thumbnail} alt="tf" style={imgBanner} />
-        <div style={infoContainer}>
-          <h1 style={headlineStyle}>{info?.title}</h1>
-          <div><ul style={ulStatStyle}><li><strong>Chapters:</strong> {info?.chapter_count}</li><li><strong>Author:</strong> {info?.author}</li></ul></div>
-          <div style={summaryStyle}>
-            <h2>Summary:</h2>
-            <p>{info?.desc}</p>
+          <img src={info?.thumbnail} alt="tf" style={imgBanner} />
+          <div style={infoContainer}>
+            <h1 style={headlineStyle}>{info?.title}</h1>
+            <div>
+              <ul style={ulStatStyle}>
+                <li>
+                  <strong>Chapters:</strong> {info?.chapter_count}
+                </li>
+                <li>
+                  <strong>Author:</strong> {info?.author}
+                </li>
+              </ul>
+            </div>
+            <div style={summaryStyle}>
+              <h2>Summary:</h2>
+              <p>{info?.desc}</p>
+            </div>
           </div>
         </div>
-        </div>
       </div>
-      <Divider section="Chapters:"/>
-      <ChapterList/>
+      <Divider section="Chapters:" />
+      <div style={gridContainer}>
+      {chapter.map((chapter) => (
+        <div key={chapter.id} style={chapterWrapper}>
+          <p style={p}>Chapter: {chapter.id}</p>
+          <p style={p}>{chapter.chapter_name}</p>
+        </div>
+      ))}
+    </div>
     </>
   );
 };
