@@ -66,6 +66,11 @@ const NovelInfo = () => {
     fetchChapter();
   }, [type, title]);
 
+
+  const overflowWrapper: React.CSSProperties = {
+    overflowX: "hidden"
+  }
+
   const novelBanner: React.CSSProperties = {
     position: "relative",
     display: "flex",
@@ -148,25 +153,46 @@ const NovelInfo = () => {
     margin: isMobile ? "0 0 0 0" : "auto",
   };
 
-  const gridContainer: React.CSSProperties = {
-    display: "grid",
-    gridTemplateColumns: "2",
-    width: "100vw"
-
-  }
-
+  const flexContainer: React.CSSProperties = {
+    margin: "20px 0 0 0",
+    display: "flex",
+    flexWrap: "wrap",
+    gap: '10px',
+    justifyContent: "center",
+  };
+  
   const chapterWrapper: React.CSSProperties = {
-    width:"500px"
+    borderRadius: '10px',
+    width:"45vw",
+    boxShadow: "5px 5px 5px rgba(0, 0, 0, 0.5)",
+    cursor: "pointer",
+    backgroundColor: "#242424",
+  };
+  
+  const ulStyle: React.CSSProperties = {
+    listStyleType: 'none',
+    padding: 0,
+    margin: 0,
+  };
+  
+  const liStyle: React.CSSProperties = {
+    padding: '5px',
+    margin: "0px",
+    backgroundColor: "#181818",
+    boxShadow: "5px 5px 5px rgba(0, 0, 0, 0.3)",
+    borderTopLeftRadius: '10px',
+    borderTopRightRadius: '10px',
+  };
 
-  }
+  const liStyle2: React.CSSProperties = {
+    padding: '5px',
+    margin: "1px",
+  };
 
-  const p: React.CSSProperties = {
-    width:"500px"
-
-  }
 
   return (
     <>
+    <div style={overflowWrapper}>
       <Navbar />
       <div style={novelBanner}>
         <div style={blurredBackground}></div>
@@ -192,13 +218,16 @@ const NovelInfo = () => {
         </div>
       </div>
       <Divider section="Chapters:" />
-      <div style={gridContainer}>
+      <div style={flexContainer}>
       {chapter.map((chapter) => (
         <div key={chapter.id} style={chapterWrapper}>
-          <p style={p}>Chapter: {chapter.id}</p>
-          <p style={p}>{chapter.chapter_name}</p>
+          <ul style={ulStyle}>
+            <li style={liStyle}>Chapter: {chapter.id}</li>
+            <li style={liStyle2}>{chapter.chapter_name}</li>
+          </ul>
         </div>
       ))}
+    </div>
     </div>
     </>
   );

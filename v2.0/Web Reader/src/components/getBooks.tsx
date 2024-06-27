@@ -33,9 +33,10 @@ const getBooks = () => {
     margin: "0",
     padding: "0",
     cursor: "pointer",
-    boxShadow: "5px 7px 5px rgba(0, 0, 0, 0.5)",
+    boxShadow: "7px 8px 5px rgba(0, 0, 0, 0.5)",
     transform: hoveredId === id ? "scale(1.1)" : "scale(1)",
     transition: "transform 0.3s ease-in-out",
+    borderRadius: "10px"
   });
 
   useEffect(() => {

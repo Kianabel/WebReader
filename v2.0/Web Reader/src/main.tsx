@@ -9,7 +9,6 @@ import {
 import App from './App.tsx'
 import Novel from "./routes/Novel.tsx"
 import Infoscreen from './routes/Infoscreen.tsx';
-import ChapterList from './components/ChapterList.tsx';
 
 const router = createBrowserRouter([
   {
@@ -19,10 +18,6 @@ const router = createBrowserRouter([
   {
     path: "/download",
     element: <App/>,
-  },
-  {
-    path: "/test",
-    element: <ChapterList/>,
   },
   {
     path: "/:type",

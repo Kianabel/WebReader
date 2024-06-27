@@ -22,8 +22,9 @@ function App() {
     height: "280px",
     width: "200px",
     justifyContent: "center",
-    border: "3px solid rgba(0, 0, 0, 1)",
-    boxShadow: "5px 7px 5px rgba(0, 0, 0, 0.5)",
+    border: "2px solid #181818",
+    borderRadius: "10px",
+    boxShadow: "7px 8px 5px rgba(0, 0, 0, 0.5)",
     cursor: "pointer",
     transform: hoveredId === id ? "scale(1.1)" : "scale(1)",
     transition: "transform 0.3s ease-in-out",
@@ -40,8 +41,10 @@ function App() {
     textAlign: "center",
     height: "20%",
     width: "auto",
-    margin: "0",
-    marginTop: "20px",
+    margin: "0 0 0 0",
+    padding: "5px",
+    backgroundColor: "#181818",
+    boxShadow: "0px 5px 5px rgba(0, 0, 0, 0.4)",
   };
 
   const navigate = useNavigate();
