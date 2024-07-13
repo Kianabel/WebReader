@@ -29,7 +29,7 @@ const Navbar = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    height: "10vh",
+    height: isMobile? "10vh" : "7vh",
     width: "100vw",
     backgroundColor: "#242424",
     boxShadow: "0px 0px 20px 0px rgba(0, 0, 0, 0.5)",
