@@ -9,6 +9,7 @@ import {
 import App from './App.tsx'
 import Novel from "./routes/Novel.tsx"
 import Infoscreen from './routes/Infoscreen.tsx';
+import Split from './components/Split.tsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
   {
     path: "/novel/:title/chapter/:chapterNumber",
     element: <App/>,
+  },
+  {
+    path: "/test",
+    element: <Split/>,
   },
 ]);
 
