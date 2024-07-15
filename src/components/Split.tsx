@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
+import { HiMiniBookOpen, HiPhoto } from "react-icons/hi2";
 
 const Split = () => {
   const [isLeftHovered, setIsLeftHovered] = useState(false);
@@ -64,7 +65,7 @@ const Split = () => {
   const leftSectionStyle: React.CSSProperties = {
     ...sectionStyle,
     display: "flex",
-    backgroundColor: "#302020",
+    backgroundColor: "#342424",
     clipPath: isLeftHovered
       ? "polygon(0 0, 40% 0, 100% 100%, 0% 100%)"
       : "polygon(0 0, 20% 0, 80% 100%, 0% 100%)",
@@ -72,14 +73,14 @@ const Split = () => {
     zIndex: leftZIndex,
     alignItems: "center",
     justifyContent: "center",
-    opacity: isLeftHovered ? 0.6 : 1,
+    opacity: isLeftHovered ? 1 : 0.6,
     cursor: "pointer",
   };
 
   const rightSectionStyle: React.CSSProperties = {
     ...sectionStyle,
     display: "flex",
-    backgroundColor: "#301020",
+    backgroundColor: "#342424",
     clipPath: isRightHovered
       ? "polygon(0% 0, 100% 0, 100% 100%, 60% 100%)"
       : "polygon(20% 0, 100% 0, 100% 100%, 80% 100%)",
@@ -87,7 +88,7 @@ const Split = () => {
     zIndex: isRightHovered ? 2 : 1,
     alignItems: "center",
     justifyContent: "center",
-    opacity: isRightHovered ? 0.6 : 1,
+    opacity: isRightHovered ? 1 : 0.6,
     cursor: "pointer",
   };
 
@@ -95,26 +96,36 @@ const Split = () => {
     position: "absolute",
     zIndex: 3,
     display: "flex",
+    flexDirection: "column",
     width: "40%",
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
     pointerEvents: "none",
     left: 0,
-    opacity: isLeftHovered ? "100%" : "50%"
+    opacity: isLeftHovered ? "100%" : "50%",
+    fontSize: "20px"
   };
 
   const rightTextContainer: React.CSSProperties = {
     position: "absolute",
     zIndex: 3,
     display: "flex",
+    flexDirection: "column",
     width: "40%",
     height: "100%",
     alignItems: "center",
     justifyContent: "center",
     pointerEvents: "none",
     right: 0,
-    opacity: isRightHovered ? "100%" : "50%"
+    opacity: isRightHovered ? "100%" : "50%",
+    fontSize: "20px"
+  };
+  
+  const cardIcon: React.CSSProperties = {
+    height: "20%",
+    width: "20%",
+    justifyContent: "center",
   };
 
   return (
@@ -135,9 +146,11 @@ const Split = () => {
         ></div>
         <div style={leftTextContainer}>
           <h1>Novel</h1>
+          <HiMiniBookOpen style={cardIcon} />
         </div>
         <div style={rightTextContainer}>
           <h1>Manga</h1>
+          <HiPhoto style={cardIcon} />
         </div>
       </div>
     </div>
