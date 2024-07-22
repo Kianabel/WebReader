@@ -1,30 +1,47 @@
-# React + TypeScript + Vite
+# This is a
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Open-source web application built using React, TypeScript, Vite, and Firebase.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** for a dynamic and responsive user interface.
+- **TypeScript** for type safety.
+- **Vite** because I dont wanna wait 3 fucking years to build.
+- **Firebase** because I dont want to bother with backends.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Prerequisites
 
-- Configure the top-level `parserOptions` property like this:
+Ensure you have the following installed:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- [Node.js](https://nodejs.org/) (v14 or above)
+- [npm](https://www.npmjs.com/) (v6 or above)
+
+### Installation
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/Kianabel/WebReader.git
+    ```
+
+2. **Navigate to the project directory:**
+
+    ```bash
+    cd WebReader
+    ```
+
+3. **Install dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+### Running the Application
+
+To start the dev-server, run:
+
+```bash
+npm run dev
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
