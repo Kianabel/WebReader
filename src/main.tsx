@@ -9,7 +9,7 @@ import {
 import App from './App.tsx'
 import Novel from "./routes/Novel.tsx"
 import Infoscreen from './routes/Infoscreen.tsx';
-import Split from './components/Split.tsx';
+import Test from './components/Test.tsx';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/test",
-    element: <Split/>,
+    element: <Test/>,
   },
 ]);
 
