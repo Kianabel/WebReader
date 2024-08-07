@@ -10,6 +10,7 @@ import App from './App.tsx'
 import Novel from "./routes/Novel.tsx"
 import Infoscreen from './routes/Infoscreen.tsx';
 import Test from './components/Test.tsx';
+import ReadChapter from './routes/ReadChapter.tsx';
 
 const router = createBrowserRouter([
   {
@@ -29,8 +30,8 @@ const router = createBrowserRouter([
     element: <Infoscreen/>,
   },
   {
-    path: "/novel/:title/chapter/:chapterNumber",
-    element: <App/>,
+    path: "/:type/:title/:chapterNumber",
+    element: <ReadChapter/>,
   },
   {
     path: "/test",

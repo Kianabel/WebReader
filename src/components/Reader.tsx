@@ -2,36 +2,99 @@ import React, { useState, useEffect } from "react";
 import { HiChevronLeft, HiChevronRight, HiBookOpen } from "react-icons/hi";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../firebase-config";
-import { useParams } from "react-router-dom";
-
-interface Chapter {
-  id: string;
-  chapter_name: string;
-  chapter_content: string;
-}
+import { useNavigate, useParams } from "react-router-dom";
 
 const TextReader = () => {
+  interface Chapter {
+    id: string;
+    chapter_name: string;
+    chapter_content: string;
+  }
+
+  interface ChapterInfo {
+    id: string;
+    thumbnail: string;
+    author: string;
+    chapter_count: number;
+    title: string;
+  }
+
   const [isMobile, setIsMobile] = useState(window.innerWidth < 700);
-  const { type, title, chapterNumber } = useParams<"type" | "title" | "chapterNumber">();
+  const { type, title, chapterNumber } = useParams<
+    "type" | "title" | "chapterNumber"
+  >();
   const [getChapter, setChapter] = useState<Chapter | null>(null);
+  const [getChapterInfo, setChapterInfo] = useState<ChapterInfo | null>(null);
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
   const [clickedButton, setClickedButton] = useState<string | null>(null);
+  let [scrollProgress, setScrollProgress] = useState(0);
 
-  useEffect(() => { // retrieve chapter
-    const fetchInfo = async () => {
+  const navigate = useNavigate();
+
+  const goPrev = () => {
+    const prevChapter: number = Number(chapterNumber) - 1;
+    if (prevChapter < 0) {
+      navigate(`/${type}/${title}`);
+    } else {
+      navigate(`/${type}/${title}/${prevChapter}`);
+    }
+    window.scrollTo({ top: 0});
+  };
+
+  const goNovel = () => {
+    navigate(`/${type}/${title}`);
+    window.scrollTo({ top: 0});
+  };
+
+  const goNext = () => {
+    const nextChapter: number = Number(chapterNumber) + 1;
+    if (nextChapter >= (getChapterInfo?.chapter_count || 0)) {
+      navigate(`/${type}/${title}`);
+    } else {
+      navigate(`/${type}/${title}/${nextChapter}`);
+    }
+    window.scrollTo({ top: 0});
+  };
+
+  useEffect(() => {
+    // retrieve chapter
+    const fetchChapter = async () => {
       if (type && title && chapterNumber) {
-        const docRef = doc(db, `${type}/${title}/${chapterNumber}`);
+        const docRef = doc(db, `${type}/${title}/chapter/${chapterNumber}`);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
-          setChapter(docSnap.data() as Chapter);
+          const chapterData = docSnap.data() as Chapter;
+          if (chapterData.chapter_content === "Placeholder") {
+            navigate(`/${type}/${title}`);
+          } else {
+            setChapter(chapterData);
+          }
+        } else {
+          console.log("No such document!");
+          goPrev()
+        }
+      }
+    };
+
+    fetchChapter();
+  }, [type, title, chapterNumber, navigate]);
+
+  useEffect(() => {
+    // retrieve maxChapter
+    const fetchChapterInfo = async () => {
+      if (type && title) {
+        const docRef = doc(db, `${type}/${title}`);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setChapterInfo(docSnap.data() as ChapterInfo);
         } else {
           console.log("No such document!");
         }
       }
     };
 
-    fetchInfo();
-  }, [type, title, chapterNumber]);
+    fetchChapterInfo();
+  }, [type, title]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -61,11 +124,25 @@ const TextReader = () => {
     setClickedButton(null);
   };
 
+  const handleScroll = () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.body.scrollHeight - window.innerHeight;
+    const scrollPercent = (scrollTop / docHeight) * 100;
+    setScrollProgress(scrollPercent);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   const getButtonStyle = (button: string) => {
     let backgroundColor = "#d91c1c";
 
     if (clickedButton === button) {
-      backgroundColor = "#a11212"; // Darker color on click
+      backgroundColor = "#8b1212"; // Darker color on click
     } else if (hoveredButton === button) {
       backgroundColor = "#b51818"; // Darker color on hover
     }
@@ -80,7 +157,7 @@ const TextReader = () => {
       fontSize: "15px",
       fontWeight: "bold",
       cursor: "pointer",
-      transition: "background-color 0.3s",
+      transition: "background-color 0.05s",
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
@@ -108,7 +185,18 @@ const TextReader = () => {
     width: isMobile ? "350px" : "650px",
   };
 
-  const content : string | TrustedHTML = getChapter?.chapter_content || "<p>The Chapter you are looking for is not available</p>"
+  const ProgressBar: React.CSSProperties = {
+    position: "fixed",
+    bottom: "0",
+    left: "0",
+    height: "5px",
+    width: `${scrollProgress}%`,
+    backgroundColor: `rgba(${scrollProgress * 2.55}, 0, 0)`,
+    transition: "width 0.25s, background-color 0.25s",
+    boxShadow: "0 0 8px rgba(255, 0, 0, 0.8)",
+  };
+
+  const content: string = getChapter?.chapter_content || "";
 
   return (
     <>
@@ -120,6 +208,7 @@ const TextReader = () => {
             onMouseLeave={handleMouseLeave}
             onMouseDown={() => handleMouseDown("prev")}
             onMouseUp={handleMouseUp}
+            onClick={() => goPrev()}
           >
             <HiChevronLeft size={30} />
           </button>
@@ -129,6 +218,7 @@ const TextReader = () => {
             onMouseLeave={handleMouseLeave}
             onMouseDown={() => handleMouseDown("home")}
             onMouseUp={handleMouseUp}
+            onClick={() => goNovel()}
           >
             <HiBookOpen size={25} />
           </button>
@@ -138,6 +228,7 @@ const TextReader = () => {
             onMouseLeave={handleMouseLeave}
             onMouseDown={() => handleMouseDown("next")}
             onMouseUp={handleMouseUp}
+            onClick={() => goNext()}
           >
             <HiChevronRight size={30} />
           </button>
@@ -153,6 +244,7 @@ const TextReader = () => {
             onMouseLeave={handleMouseLeave}
             onMouseDown={() => handleMouseDown("prev2")}
             onMouseUp={handleMouseUp}
+            onClick={() => goPrev()}
           >
             <HiChevronLeft size={30} />
           </button>
@@ -162,6 +254,7 @@ const TextReader = () => {
             onMouseLeave={handleMouseLeave}
             onMouseDown={() => handleMouseDown("home2")}
             onMouseUp={handleMouseUp}
+            onClick={() => goNovel()}
           >
             <HiBookOpen size={25} />
           </button>
@@ -171,11 +264,13 @@ const TextReader = () => {
             onMouseLeave={handleMouseLeave}
             onMouseDown={() => handleMouseDown("next2")}
             onMouseUp={handleMouseUp}
+            onClick={() => goNext()}
           >
             <HiChevronRight size={30} />
           </button>
         </div>
       </div>
+      <div style={ProgressBar}></div>
     </>
   );
 };
